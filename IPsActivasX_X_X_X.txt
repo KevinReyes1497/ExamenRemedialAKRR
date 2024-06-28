@@ -1,0 +1,31 @@
+import ipaddress
+
+def verificar_ip(ip):
+    respuesta = input(f"¿La IP {ip} está activa? (1 = Sí, 0 = No): ")
+    return respuesta == '1'
+
+
+direccion_red = input("Ingrese la dirección de red (ej. 192.168.1.0): ")
+prefijo = int(input("Ingrese el prefijo de máscara (ej. 24): "))
+
+
+red = ipaddress.IPv4Network(f"{direccion_red}/{prefijo}", strict=False)
+ips_activas = []
+
+for ip in red:
+    if verificar_ip(str(ip)):
+        ips_activas.append(str(ip))
+    else:
+        break
+
+print("\nLas direcciones IP activas son:")
+for ip in ips_activas:
+    print(ip)
+
+
+nombre_archivo = f"/home/devasc/labs/devnet-src/ExamenRemedialXYZ/IPsActivas{direccion_red}_{prefijo}.txt"
+with open(nombre_archivo, 'w') as archivo:
+    archivo.write("\n".join(ips_activas))
+
+print(f"\nSe ha guardado la lista de IPs activas en {examAKRR.py}")
+
